@@ -1,0 +1,67 @@
+name: brackets
+source code: |-
+  input: '({)}'
+  blank: ' '
+  start state: q1
+  table:
+    
+    q1:
+      ['(', '{', '[']: {R}
+      ')': {write: 'F', L: q2a}
+      '}': {write: 'F', L: q2b}
+      ']': {write: 'F', L: q2c}
+      'F': {R: q1}
+      ' ': {L: q5}
+    
+    q2a:
+      '(': {write: 'F', L: q3}
+      ['{', '[']: {write: 'F', L: clL}
+      'F': {L: q2a}
+    
+    q2b:
+      '{': {write: 'F', L: q3}
+      ['(', '[']: {write: 'F', L: clL}
+      'F': {L: q2b}
+    
+    q2c:
+      '[': {write: 'F', L: q3}
+      ['{', '(']: {write: 'F', L: clL}
+      'F': {L: q2c}
+      
+    q3:
+      ['(', ')', '{', '}', '[', ']', 'F']: {L: q3}
+      ' ': {R: q4}
+    
+    tmp:
+      ['(', ')', '{', '}', '[', ']', 'F', 'T', ' ']: {R: q1}
+     
+    q4:
+      ['(', '{', '[']: {L: tmp}
+      'F': {write: ' ', R: q4}
+      ' ': {write: 'T', L: done}
+      
+    q5:
+      ['(', ')', '{', '}', '[', ']', 'F']: {write: ' ', L: q5}
+      ' ': {write: 'F', L: done}
+    
+    clL:
+      ['(', ')', '{', '}', '[', ']', 'F']: {write: 'F', L: clL}
+      ' ': {R: clR}
+    
+    clR:
+      ['(', ')', '{', '}', '[', ']', 'F']: {write: ' ', R: clR}
+      ' ': {write: 'F', L: done}
+    
+    done:
+positions:
+  q1: {x: 544.59, y: 329.46, fixed: false}
+  q2a: {x: 407.6, y: 419.14, fixed: false}
+  q2b: {x: 412.19, y: 374.71, fixed: false}
+  q2c: {x: 408.83, y: 304.95, fixed: false}
+  q3: {x: 278.94, y: 310.59, fixed: false}
+  tmp: {x: 436.23, y: 210.92, fixed: false}
+  q4: {x: 283.48, y: 152.31, fixed: false}
+  q5: {x: 565.09, y: 179.11, fixed: false}
+  clL: {x: 271.36, y: 376.5, fixed: false}
+  clR: {x: 295.42, y: 221.44, fixed: false}
+  done: {x: 420.82, y: 118.34, fixed: false}

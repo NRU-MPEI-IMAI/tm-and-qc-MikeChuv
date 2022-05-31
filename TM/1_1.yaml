@@ -1,0 +1,31 @@
+name: unary multiplication
+source code: |-
+  input: '||+|||' 
+  blank: ' '
+
+
+  start state: q0
+  table:
+    # For each 1 in a, add a copy of b.
+    q0:
+      '|': {R: q0}
+      '+': {write: '|', R: q1}
+      
+    q1:
+      '|': {R: q1}
+      ' ': {L: q2}
+    
+    q2:
+      '|': {write: ' ', L: ret}
+    
+    ret:
+      '|': L
+      ' ': {R: done}
+    
+    done:
+positions:
+  q0: {x: 268.59, y: 239.5, fixed: false}
+  q1: {x: 297.9, y: 97.73}
+  q2: {x: 517.04, y: 112.78}
+  ret: {x: 524.99, y: 261.08, fixed: false}
+  done: {x: 390.71, y: 303.68, fixed: false}

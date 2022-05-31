@@ -1,0 +1,166 @@
+name: unary multiplication
+source code: |-
+
+  input: '000111222' # try '*', '|*|||', '||||*||'
+  blank: ' '
+
+
+  start state: q1
+  table:
+    
+    q1:
+      '0': {R: q1}
+      '1': {L: q2}
+      '2': {write: 'F', L: doneF}
+      'F': {R: q1}
+      ' ': {L: doneT}
+    q2:
+      '0': {write: 'F', R: q3}
+      '1': {write: 'F', L: doneF}
+      '2': {write: 'F', L: doneF}
+      'F': {L: q2}
+      ' ': {write: 'F', L: doneF} 
+    
+    q3:
+      '0': {write: 'F', L: doneF}
+      '1': {R: q3}
+      '2': {L: q4}
+      'F': {R: q3}
+      ' ': {write: 'F', L: doneF}
+    
+    q4:
+      '0': {write: 'F', L: doneF}
+      '1': {write: 'F', R: q5}
+      '2': {write: 'F', L: doneF}
+      'F': {L: q4}
+      ' ': {write: 'F', L: doneF}
+    
+    q5:
+      '0': {write: 'F', L: doneF}
+      '1': {write: 'F', R: q5}
+      '2': {R: q5}
+      'F': {R: q5}
+      ' ': {L: q6}
+    
+    q6:
+      '0': {write: 'F', L: doneF}
+      '1': {write: 'F', L: doneF}
+      '2': {write: 'F', L: q7}
+      'F': {L: q6}
+      ' ': {write: 'F', L: doneF}
+      
+    q7:
+      '0': {L: q7}
+      '1': {L: q7}
+      '2': {L: q7}
+      'F': {L: q7}
+      ' ': {R: q1}  
+    
+    doneF:
+      ['0', '1', '2', 'F']: {write: 'F', R: clearRF}
+      ' ': {write: 'F', L: fin}
+      
+    clearRF:
+      ['0', '1', '2', 'F']: {write: 'F', R: clearRF}
+      ' ': {L: clearLF}
+    clearLF:
+      ['0', '1', '2', 'F']: {write: ' ', L: clearLF}
+      ' ': {write: 'F', L: fin}
+    
+    doneT:
+      'F': {write: ' ', L: doneT}
+      ' ': {write: 'T', L: fin}
+    
+    
+    fin:
+    
+    
+positions:
+  q1: {x: 297.9, y: 97.73}
+  q2: {x: 517.04, y: 112.78}
+  q3: {x: 535.62, y: 425.52}
+  q4: {x: 369.14, y: 421.52}
+  q5: {x: 240.5, y: 354.49}
+  q6: {x: 184.23, y: 271.75}
+  q7: {x: 176.28, y: 164.51}
+  doneF: {x: 438.59, y: 198.83}
+  clearRF: {x: 656.72, y: 118.35}
+  clearLF: {x: 718.49, y: 184.24}
+  doneT: {x: 444.79, y: 309.08}
+  fin: {x: 660.23, y: 301.84}
+editor contents: |-
+
+  input: '000111222'
+  blank: ' '
+
+
+  start state: q1
+  table:
+    
+    q1:
+      '0': {R: q1}
+      '1': {L: q2}
+      '2': {write: 'F', L: doneF}
+      'F': {R: q1}
+      ' ': {L: doneT}
+    q2:
+      '0': {write: 'F', R: q3}
+      '1': {write: 'F', L: doneF}
+      '2': {write: 'F', L: doneF}
+      'F': {L: q2}
+      ' ': {write: 'F', L: doneF} 
+    
+    q3:
+      '0': {write: 'F', L: doneF}
+      '1': {R: q3}
+      '2': {L: q4}
+      'F': {R: q3}
+      ' ': {write: 'F', L: doneF}
+    
+    q4:
+      '0': {write: 'F', L: doneF}
+      '1': {write: 'F', R: q5}
+      '2': {write: 'F', L: doneF}
+      'F': {L: q4}
+      ' ': {write: 'F', L: doneF}
+    
+    q5:
+      '0': {write: 'F', L: doneF}
+      '1': {write: 'F', R: q5}
+      '2': {R: q5}
+      'F': {R: q5}
+      ' ': {L: q6}
+    
+    q6:
+      '0': {write: 'F', L: doneF}
+      '1': {write: 'F', L: doneF}
+      '2': {write: 'F', L: q7}
+      'F': {L: q6}
+      ' ': {write: 'F', L: doneF}
+      
+    q7:
+      '0': {L: q7}
+      '1': {L: q7}
+      '2': {L: q7}
+      'F': {L: q7}
+      ' ': {R: q1}  
+    
+    doneF:
+      ['0', '1', '2', 'F']: {write: 'F', R: clearRF}
+      ' ': {write: 'F', L: fin}
+      
+    clearRF:
+      ['0', '1', '2', 'F']: {write: 'F', R: clearRF}
+      ' ': {L: clearLF}
+    clearLF:
+      ['0', '1', '2', 'F']: {write: ' ', L: clearLF}
+      ' ': {write: 'F', L: fin}
+    
+    doneT:
+      'F': {write: ' ', L: doneT}
+      ' ': {write: 'T', L: fin}
+    
+    
+    fin:
+    
+    

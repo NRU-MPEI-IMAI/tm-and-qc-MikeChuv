@@ -1,0 +1,81 @@
+name: unary multiplication
+source code: |-
+  input: '*' # try '*', '|*|||', '||||*||'
+  blank: ' '
+
+
+  start state: q1
+  table:
+    # start - picks first |
+    q1:
+      '|': {write: ' ', R: q2}
+      '*': {write: ' ', R: q11}
+      
+    # skips all | until *
+    q2:
+      '|': {R: q2}
+      '*': {R: q3}
+      
+    # skips all until empty and writes * at the end if on the first pass
+    q3:
+      '|': {R: q3}
+      '*': {L: q4}
+      ' ': {write: '*', L: q4}
+      
+    # skip until * (in second number)
+    q4:
+      '|': {L: q4}
+      '*': {R: q5}
+    
+    # picks | to copy, if meets * then all | are copied -- exiting loop
+    q5:
+      '|': {write: ' ', R: q6}
+      '*': {L: q9}
+    
+    # skip all | until * (moving right)  
+    q6:
+      '|': {R: q6}
+      '*': {R: q7}
+      
+    # write | on a first empty cell
+    q7:
+      '|': {R: q7}
+      ' ': {write: '|', L: q8}
+    
+    # skips until empty cell (prev picked) and writes | back
+    q8:
+      '|': {L: q8}
+      '*': {L: q8}
+      ' ': {write: '|', R: q5}
+    
+    # skip | in second number (moving left)
+    q9:
+      '|': {L: q9}
+      '*': {L: q10}
+    
+    # skip | in first number (moving left)
+    # if meets empty cell, repeats loop
+    q10:
+      '|': {L: q10}
+      ' ': {R: q1}
+    
+    # erases everything except | moving right and stops
+    q11:
+      '|': {write: ' ', R: q11}
+      '*': {write: ' ', R: done}
+      ' ': {L: done} # ?? why it cannot just stay
+    
+    done:
+positions:
+  q1: {x: 297.9, y: 97.73}
+  q2: {x: 517.04, y: 112.78}
+  q3: {x: 535.62, y: 425.52}
+  q4: {x: 369.14, y: 421.52}
+  q5: {x: 240.5, y: 354.49}
+  q6: {x: 184.23, y: 271.75}
+  q7: {x: 176.28, y: 164.51}
+  q8: {x: 108.29, y: 296.6, fixed: false}
+  q9: {x: 390.93, y: 333.15, fixed: false}
+  q10: {x: 415.36, y: 193.68, fixed: false}
+  q11: {x: 418.09, y: 20, fixed: false}
+  done: {x: 563.66, y: 25.87, fixed: false}
