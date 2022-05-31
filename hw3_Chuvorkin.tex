@@ -484,18 +484,20 @@ def get_state(state):
     circuit.initialize(state)
     circuit.h(qreg_q[0])
     circuit.h(qreg_q[1])
-    
+
     cur = Statevector(circuit)
     res = cur.measure()[0] # (outcome : str, state : post-measurement state) 
-    
+
     num = int(res, 2)
     return num
 
 
 get_state(S_0)
 >>>	0
-	
+
 \end{minted}
+
+Полное решение в $Jupyter Notebook$ (Чуворкин HW-3)
 
 
 \subsection{Написание оракула 1 (2 балла)}
